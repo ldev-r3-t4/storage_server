@@ -4,7 +4,7 @@ info:
   description: "Stores and Retrieves information needed"
   version: "1.0.0"
   title: "Team 4 Storage API"
-host: "ec2-54-202-25-115.us-west-2.compute.amazonaws.com:8000"
+host: "ec2-54-69-164-246.us-west-2.compute.amazonaws.com:8000"
 basePath: "/v1"
 schemes:
 - "http"
