@@ -24,7 +24,7 @@ paths:
           description: "A primary type, containing all values"
           schema:
             $ref: "#/definitions/Problem"
-      x-swagger-router-controller: "swagger_server.controllers.server_controller"
+      x-swagger-router-controller: "swagger_server.controllers.primary_controller"
   /primary/ver={version}/:
     post:
       tags:
@@ -65,7 +65,7 @@ paths:
             description: "latest version number"
         500:
           description: "Incorrect JSON"
-      x-swagger-router-controller: "swagger_server.controllers.server_controller"
+      x-swagger-router-controller: "swagger_server.controllers.primary_controller"
   /analytic/:
     get:
       tags:
@@ -81,7 +81,7 @@ paths:
           description: "A analytic type, containing all values"
           schema:
             $ref: "#/definitions/Problem"
-      x-swagger-router-controller: "swagger_server.controllers.server_controller"
+      x-swagger-router-controller: "swagger_server.controllers.analytic_controller"
   /analytic/ver={version}/:
     post:
       tags:
@@ -122,7 +122,7 @@ paths:
             description: "latest version number"
         500:
           description: "Incorrect JSON"
-      x-swagger-router-controller: "swagger_server.controllers.server_controller"
+      x-swagger-router-controller: "swagger_server.controllers.analytic_controller"
 definitions:
   Body:
     type: "object"
