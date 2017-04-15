@@ -1,0 +1,136 @@
+---
+swagger: "2.0"
+info:
+  description: "Stores and Retrieves information needed"
+  version: "1.0.0"
+  title: "Team 4 Storage API"
+host: "ec2-54-202-25-115.us-west-2.compute.amazonaws.com:8000"
+basePath: "/v1"
+schemes:
+- "http"
+paths:
+  /primary/:
+    get:
+      tags:
+      - "primary"
+      summary: "primary"
+      description: "Returns most updated primary\n"
+      operationId: "get_primary"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A primary type, containing all values"
+          schema:
+            $ref: "#/definitions/Problem"
+      x-swagger-router-controller: "swagger_server.controllers.server_controller"
+  /primary/ver={version}/:
+    post:
+      tags:
+      - "primary"
+      summary: "Update the existing primary"
+      description: ""
+      operationId: "post_primary"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "version"
+        in: "path"
+        description: "The version of the problem being manipulated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "problem"
+        description: "Problem object that needs to be updated."
+        required: true
+        schema:
+          $ref: "#/definitions/Body"
+      responses:
+        200:
+          description: "The new version number for the problem"
+          schema:
+            type: "integer"
+            format: "int32"
+        404:
+          description: "Problem not found"
+        412:
+          description: "Incorrect version number"
+          schema:
+            type: "integer"
+            format: "int32"
+            description: "latest version number"
+        500:
+          description: "Incorrect JSON"
+      x-swagger-router-controller: "swagger_server.controllers.server_controller"
+  /analytic/:
+    get:
+      tags:
+      - "analytic"
+      summary: "analytic"
+      description: "Returns most updated analytic\n"
+      operationId: "get_analytic"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A analytic type, containing all values"
+          schema:
+            $ref: "#/definitions/Problem"
+      x-swagger-router-controller: "swagger_server.controllers.server_controller"
+  /analytic/ver={version}/:
+    post:
+      tags:
+      - "analytic"
+      summary: "Update the existing analytic"
+      description: ""
+      operationId: "post_analytic"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "version"
+        in: "path"
+        description: "The version of the problem being manipulated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "problem"
+        description: "Problem object that needs to be updated."
+        required: true
+        schema:
+          $ref: "#/definitions/Body"
+      responses:
+        200:
+          description: "The new version number for the problem"
+          schema:
+            type: "integer"
+            format: "int32"
+        404:
+          description: "Problem not found"
+        412:
+          description: "Incorrect version number"
+          schema:
+            type: "integer"
+            format: "int32"
+            description: "latest version number"
+        500:
+          description: "Incorrect JSON"
+      x-swagger-router-controller: "swagger_server.controllers.server_controller"
+definitions:
+  Body:
+    type: "object"
+  Problem:
+    type: "object"
+    properties:
+      version:
+        type: "integer"
+        format: "int32"
+      body:
+        $ref: "#/definitions/Body"
