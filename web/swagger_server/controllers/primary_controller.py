@@ -63,7 +63,7 @@ def post_primary(version, problem):
         json.loads(str_body)
         #pprint(str_body)
         print("Version is: {0}".format(version))
-        if version = 9000:
+        if version == 9000:
             print("Deleting data in db")
             db.posts.delete_many({})
 
