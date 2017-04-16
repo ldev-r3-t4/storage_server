@@ -47,7 +47,6 @@ def get_primary():
     #if the uid doesn't exist then just go ahead return error status
     return jsonify({"problem_id": array})
 
-
 def post_primary(version, problem):
     """
     Update the existing primary
