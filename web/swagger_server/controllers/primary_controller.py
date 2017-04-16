@@ -64,7 +64,7 @@ def post_primary(version, problem):
         pprint(problem)
         print("\n\n")
 
-        db.posts.insert_one({"problem_id": 0, "version": version, "body":problem})
+        result = db.posts.insert_one({"body":problem})
 
         #db_size = db.posts.count()+1
         #print("db_size is: {0}".format(db_size))
