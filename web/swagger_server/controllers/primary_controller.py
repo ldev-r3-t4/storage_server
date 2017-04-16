@@ -62,6 +62,7 @@ def post_primary(version, problem):
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
         #pprint(str_body)
+        print("Version is: {0}".format(version))
 
         problem = Body.from_dict(connexion.request.get_json())
         json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
@@ -80,7 +81,7 @@ def post_primary(version, problem):
             print(i)
         insert_json(db_size, 0, problem)
 
-        cursor = db.posts.find({"Reset": "Reset"})
+        cursor = db.posts.find({"Reset": 0})
         for document in cursor:
             print(document)
 
