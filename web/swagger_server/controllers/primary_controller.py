@@ -56,8 +56,9 @@ def post_primary(version, problem):
     return 'do some magic!'
     """
     try:
-        #str_body = str(problem.decode("utf-8")).replace('\'', '\"')
-        json.loads(problem)
+        dattry = json.load(problem)
+        str_body = str(problem.decode("utf-8")).replace('\'', '\"')
+        json.loads(str_body)
         db_size = db.posts.count()+1
         print(str_body)
         problem = Body.from_dict(connexion.request.get_json())
