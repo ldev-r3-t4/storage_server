@@ -66,6 +66,7 @@ def post_primary(version, problem):
 
 
         db_size = db.posts.count()+1
+        print("db_size is: {0}".format(db_size))
 
         for i in range(1, db_size):
             if(db.posts.find_one({"problem_id":str(i)}) == None):
