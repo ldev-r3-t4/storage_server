@@ -66,10 +66,10 @@ def post_primary(version, problem):
         print("\n\n")
 
 
-        #str_body = str(problem.decode("utf-8")).replace('\'', '\"')
-        #json.loads(str_body)
+        str_body = str(problem.decode("utf-8")).replace('\'', '\"')
+        json.loads(str_body)
         db_size = db.posts.count()+1
-        #print(str_body)
+        print(str_body)
         problem = Body.from_dict(connexion.request.get_json())
         for i in range(1, db_size):
             print(i)
