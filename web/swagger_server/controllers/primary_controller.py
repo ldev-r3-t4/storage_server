@@ -68,17 +68,13 @@ def post_primary(version, problem):
         pprint(problem)
         print("\n\n")
 
-        insert_json(0, 0, problem)
+        db_size = db.posts.count()+1
+        print("db_size is: {0}".format(db_size))
 
-        #db_size = db.posts.count()+1
-
-        #str_body = str(problem.decode("utf-8"))
-        #print(str_body)
 
         #result = db.posts.insert_one({"body":problem})
 
-        #db_size = db.posts.count()+1
-        #print("db_size is: {0}".format(db_size))
+
         """
         for i in range(1, db_size):
             if(db.posts.find_one({"problem_id":str(i)}) == None):
