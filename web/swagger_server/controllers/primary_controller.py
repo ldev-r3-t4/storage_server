@@ -64,7 +64,7 @@ def post_primary(version, problem):
         pprint(problem)
         print("\n\n")
 
-        str_body = problem.decode("utf-8")
+        str_body = str(problem.decode("utf-8"))
         print(str_body)
 
         #result = db.posts.insert_one({"body":problem})
