@@ -17,7 +17,15 @@ def get_primary():
 
     :rtype: Problem
     """
-    return 'do some magic!'
+    array = []
+    for post in db.posts.distinct("problem_id"):
+        print(post)
+        array.append(int(post))
+    #run a check to see if the uid exists
+    if len(array) == 0:
+        return get_status(404, "No problems found"), status.HTTP_404_NOT_FOUND
+    #if the uid doesn't exist then just go ahead return error status
+    return jsonify({"problem_id": array})
 
 
 def post_primary(version, problem):
@@ -30,7 +38,21 @@ def post_primary(version, problem):
     :type problem: dict | bytes
 
     :rtype: int
-    """
     if connexion.request.is_json:
         problem = Body.from_dict(connexion.request.get_json())
     return 'do some magic!'
+    """
+    try:
+        str_body = str(problem.decode("utf-8")).replace('\'', '\"')
+        json.loads(str_body)
+        db_size = db.posts.count()+1
+        print(str_body)
+        problem = Body.from_dict(connexion.request.get_json())
+        for i in range(1, db_size):
+            print(i)
+        insert_json(db_size, 0, problem)
+        #print("out of func")
+        return jsonify({"problem_id": db_size})
+    except ValueError:
+        print("error Post Primary")
+        return get_status(500, "Invalid JSON"), status.HTTP_500_INTERNAL_SERVER_ERROR
