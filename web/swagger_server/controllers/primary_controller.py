@@ -23,6 +23,8 @@ db = client.path_db
 
 vrs = 0
 
+def get_status(status, message):
+    return jsonify({"Status": status, "Message": message})
 
 def insert_json(uid, version, body):
     #print("inside func")
@@ -67,6 +69,9 @@ def post_primary(version, problem):
         json.loads(str_body)
         #pprint(str_body)
         print("vrs is: {0} | In Version is: {1}".format(vrs, version))
+        if version == 9000:
+            print("Deleting data in db")
+            db.posts.delete_many({})
 
         if vrs == version:
             print("\nVersions Equal")
@@ -79,21 +84,19 @@ def post_primary(version, problem):
 
             db_size = db.posts.count()+1
             print("db_size is: {0}".format(db_size))
-
-
+            """
             for i in range(1, db_size):
                 if(db.posts.find_one({"problem_id":str(i)}) == None):
                     insert_json(i, 0, problem)
                     return jsonify({"problem_id": i})
                 print(i)
+            """
             db.posts.insert_one({"version": version, "body": problem})
             
             vrs = vrs + 1
-            if version == 9000:
-                print("Deleting data in db")
-                db.posts.delete_many({})
 
-            return jsonify({"db_size": db_size})
+
+            return jsonify({"version": version})
         else:
             print("\nVersions NOT EQUAL")
             return get_status(412, "Invalid Version Number"), status.HTTP_412_INTERNAL_SERVER_ERROR
