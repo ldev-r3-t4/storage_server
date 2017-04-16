@@ -58,6 +58,7 @@ def post_primary(version, problem):
     return 'do some magic!'
     """
     try:
+        str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         problem = Body.from_dict(connexion.request.get_json())
         json.dumps(problem)
         print("\n\nproblem\n")
