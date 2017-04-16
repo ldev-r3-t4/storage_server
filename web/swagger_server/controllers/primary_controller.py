@@ -24,6 +24,7 @@ db = client.path_db
 
 def insert_json(uid, version, body):
     #print("inside func")
+    print("Assigning \nproblem_id: {0} \nversion: {1} \n".format(uid, version))
     db.posts.insert_one({"problem_id": str(uid), "version": version, "body":body})
 
 def get_primary():
@@ -63,10 +64,6 @@ def post_primary(version, problem):
         json.loads(str_body)
         #pprint(str_body)
         print("Version is: {0}".format(version))
-        if version == 9000:
-            print("Deleting data in db")
-            db.posts.delete_many({})
-
 
 
         problem = Body.from_dict(connexion.request.get_json())
@@ -86,9 +83,9 @@ def post_primary(version, problem):
             print(i)
         insert_json(db_size, 0, problem)
 
-        cursor = db.posts.find({"Reset": 0})
-        for document in cursor:
-            print(document)
+        if version == 9000:
+            print("Deleting data in db")
+            db.posts.delete_many({})
 
         return jsonify({"problem_id": db_size})
 
