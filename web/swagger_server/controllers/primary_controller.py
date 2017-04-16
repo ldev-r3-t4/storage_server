@@ -24,8 +24,30 @@ db = client.path_db
 
 def insert_json(uid, version, body):
     #print("inside func")
-    print("Assigning \nproblem_id: {0} \nversion: {1} \n".format(uid, version))
+    print(" -- Inserting Data into DB -- \nproblem_id: {0} \nversion: {1} \n".format(uid, version))
     db.posts.insert_one({"problem_id": str(uid), "version": version, "body":body})
+
+def delete_problem(problem_id):
+    """
+    Delete primary
+    This removes the problem by the given ID 
+    :param problem_id: The id of the problem being manipulated
+    :type problem_id: int
+
+    :rtype: None
+    """
+    return 'do some magic!'
+
+def get_problem(problem_id):
+    """
+    primary
+    Returns most updated problem 
+    :param problem_id: The id of the problem being manipulated
+    :type problem_id: int
+
+    :rtype: Problem
+    """
+    return 'do some magic!'
 
 def get_primary():
     """

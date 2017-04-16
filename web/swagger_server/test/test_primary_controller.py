@@ -12,6 +12,16 @@ from flask import json
 class TestPrimaryController(BaseTestCase):
     """ PrimaryController integration test stubs """
 
+    def test_delete_problem(self):
+        """
+        Test case for delete_problem
+
+        Delete primary
+        """
+        response = self.client.open('/v1/primary/id&#x3D;{problem_id}/'.format(problem_id=56),
+                                    method='DELETE')
+        self.assert200(response, "Response body is : " + response.data.decode('utf-8'))
+
     def test_get_primary(self):
         """
         Test case for get_primary
@@ -19,6 +29,16 @@ class TestPrimaryController(BaseTestCase):
         primary
         """
         response = self.client.open('/v1/primary/',
+                                    method='GET')
+        self.assert200(response, "Response body is : " + response.data.decode('utf-8'))
+
+    def test_get_problem(self):
+        """
+        Test case for get_problem
+
+        primary
+        """
+        response = self.client.open('/v1/primary/id&#x3D;{problem_id}/'.format(problem_id=56),
                                     method='GET')
         self.assert200(response, "Response body is : " + response.data.decode('utf-8'))
 
