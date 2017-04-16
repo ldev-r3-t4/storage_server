@@ -79,6 +79,11 @@ def post_primary(version, problem):
                 return jsonify({"problem_id": i})
             print(i)
         insert_json(db_size, 0, problem)
+
+        cursor = db.posts.find({"Reset": "Reset"})
+        for document in cursor:
+            print(document)
+
         return jsonify({"problem_id": db_size})
 
         #return 'Magic happened2'
