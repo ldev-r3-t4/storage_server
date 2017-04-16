@@ -60,13 +60,15 @@ def post_primary(version, problem):
     try:
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
-        print(str_body)
-        
+        pprint(str_body)
+
         problem = Body.from_dict(connexion.request.get_json())
         json.dumps(problem)
         print("\n\nproblem\n")
         pprint(problem)
         print("\n\n")
+
+        db_size = db.posts.count()+1
 
         #str_body = str(problem.decode("utf-8"))
         #print(str_body)
@@ -86,7 +88,7 @@ def post_primary(version, problem):
         #print("out of func")
         #return jsonify({"Contents": problem})
 
-        return 'Magic happened'
+        return 'Magic happened2'
     except ValueError:
         print("error Post Primary")
         return get_status(500, "Invalid JSON"), status.HTTP_500_INTERNAL_SERVER_ERROR
