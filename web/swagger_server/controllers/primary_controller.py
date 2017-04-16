@@ -58,20 +58,31 @@ def post_primary(version, problem):
     return 'do some magic!'
     """
     try:
-        str_body = str(problem.decode("utf-8")).replace('\'', '\"')
-        json.loads(str_body)
-        db_size = db.posts.count()+1
-        print(str_body)
         problem = Body.from_dict(connexion.request.get_json())
+        json.dumps(problem)
+        print("\n\nproblem\n")
+        pprint(problem)
+        print("\n\n")
+
+        #str_body = str(problem.decode("utf-8"))
+        print(str_body)
+
+        #result = db.posts.insert_one({"body":problem})
+
+        #db_size = db.posts.count()+1
+        #print("db_size is: {0}".format(db_size))
+        """
         for i in range(1, db_size):
             if(db.posts.find_one({"problem_id":str(i)}) == None):
                 insert_json(i, 0, problem)
                 return jsonify({"problem_id": i})
             print(i)
-        insert_json(db_size, 0, problem)
+            """
+        #insert_json(db_size, 0, problem)
         #print("out of func")
-        return jsonify({"problem_id": db_size})
-    except ValueError:
-        print("error")
-        return get_status(500, "Invalid JSON"), status.HTTP_500_INTERNAL_SERVER_ERROR
+        #return jsonify({"Contents": problem})
 
+        return 'Magic happened'
+    except ValueError:
+        print("error Post Primary")
+        return get_status(500, "Invalid JSON"), status.HTTP_500_INTERNAL_SERVER_ERROR
