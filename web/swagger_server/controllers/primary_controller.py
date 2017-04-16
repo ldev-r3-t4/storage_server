@@ -67,29 +67,37 @@ def post_primary(version, problem):
         #pprint(str_body)
         print("vrs is: {0} | In Version is: {1}".format(vrs, version))
 
+        if vrs == version:
+            print("\nVersions Equal")
 
-        problem = Body.from_dict(connexion.request.get_json())
-        json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
-        print("\n\nproblem\n")
-        pprint(problem)
-        print("\n\n")
+            problem = Body.from_dict(connexion.request.get_json())
+            json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
+            print("\n\nproblem\n")
+            pprint(problem)
+            print("\n\n")
 
-        db_size = db.posts.count()+1
-        print("db_size is: {0}".format(db_size))
+            db_size = db.posts.count()+1
+            print("db_size is: {0}".format(db_size))
 
 
-        for i in range(1, db_size):
-            if(db.posts.find_one({"problem_id":str(i)}) == None):
-                insert_json(i, 0, problem)
-                return jsonify({"problem_id": i})
-            print(i)
-        insert_json(db_size, 0, problem)
+            for i in range(1, db_size):
+                if(db.posts.find_one({"problem_id":str(i)}) == None):
+                    insert_json(i, 0, problem)
+                    return jsonify({"problem_id": i})
+                print(i)
+            db.posts.insert_one({"version": version, "body": problem})
+            
+            vrs = vrs + 1
+            if version == 9000:
+                print("Deleting data in db")
+                db.posts.delete_many({})
 
-        if version == 9000:
-            print("Deleting data in db")
-            db.posts.delete_many({})
+            return jsonify({"db_size": db_size})
+        else:
+            print("\nVersions NOT EQUAL")
+            return get_status(412, "Invalid Version Number"), status.HTTP_412_INTERNAL_SERVER_ERROR
 
-        return jsonify({"problem_id": db_size})
+
 
         #return 'Magic happened2'
     except ValueError:
