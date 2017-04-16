@@ -18,6 +18,7 @@ paths:
       operationId: "get_primary"
       produces:
       - "application/json"
+      - "application/xml"
       parameters: []
       responses:
         200:
@@ -34,8 +35,10 @@ paths:
       operationId: "post_primary"
       consumes:
       - "application/json"
+      - "application/xml"
       produces:
       - "application/json"
+      - "application/xml"
       parameters:
       - name: "version"
         in: "path"
@@ -75,6 +78,7 @@ paths:
       operationId: "get_analytic"
       produces:
       - "application/json"
+      - "application/xml"
       parameters: []
       responses:
         200:
@@ -91,8 +95,10 @@ paths:
       operationId: "post_analytic"
       consumes:
       - "application/json"
+      - "application/xml"
       produces:
       - "application/json"
+      - "application/xml"
       parameters:
       - name: "version"
         in: "path"
