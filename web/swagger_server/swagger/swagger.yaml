@@ -26,53 +26,6 @@ paths:
           schema:
             $ref: "#/definitions/Problem"
       x-swagger-router-controller: "swagger_server.controllers.primary_controller"
-  /primary/id={problem_id}/:
-    get:
-      tags:
-      - "primary"
-      summary: "primary"
-      description: "Returns most updated problem\n"
-      operationId: "get_problem"
-      produces:
-      - "application/json"
-      - "application/xml"
-      parameters:
-      - name: "problem_id"
-        in: "path"
-        description: "The id of the problem being manipulated"
-        required: true
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "A Problem type, containing all values"
-          schema:
-            $ref: "#/definitions/Problem"
-        404:
-          description: "Problem not found"
-      x-swagger-router-controller: "swagger_server.controllers.primary_controller"
-    delete:
-      tags:
-      - "primary"
-      summary: "Delete primary"
-      description: "This removes the problem by the given ID\n"
-      operationId: "delete_problem"
-      produces:
-      - "application/json"
-      - "application/xml"
-      parameters:
-      - name: "problem_id"
-        in: "path"
-        description: "The id of the problem being manipulated"
-        required: true
-        type: "integer"
-        format: "int32"
-      responses:
-        200:
-          description: "Delete Successful"
-        404:
-          description: "Problem not found"
-      x-swagger-router-controller: "swagger_server.controllers.primary_controller"
   /primary/ver={version}/:
     post:
       tags:

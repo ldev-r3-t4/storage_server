@@ -21,33 +21,14 @@ client = MongoClient()
 
 db = client.path_db
 
+vrs = 0
+
 
 def insert_json(uid, version, body):
     #print("inside func")
     print(" -- Inserting Data into DB -- \nproblem_id: {0} \nversion: {1} \n".format(uid, version))
     db.posts.insert_one({"problem_id": str(uid), "version": version, "body":body})
 
-def delete_problem(problem_id):
-    """
-    Delete primary
-    This removes the problem by the given ID 
-    :param problem_id: The id of the problem being manipulated
-    :type problem_id: int
-
-    :rtype: None
-    """
-    return 'do some magic!'
-
-def get_problem(problem_id):
-    """
-    primary
-    Returns most updated problem 
-    :param problem_id: The id of the problem being manipulated
-    :type problem_id: int
-
-    :rtype: Problem
-    """
-    return 'do some magic!'
 
 def get_primary():
     """
@@ -85,7 +66,7 @@ def post_primary(version, problem):
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
         #pprint(str_body)
-        print("Version is: {0}".format(version))
+        print("vrs is: {0} | In Version is: {1}".format(vrs, version))
 
 
         problem = Body.from_dict(connexion.request.get_json())
