@@ -77,7 +77,7 @@ def post_primary(version, problem):
             """
         #insert_json(db_size, 0, problem)
         #print("out of func")
-        return jsonify({"problem_id": db_size})
+        return jsonify({"Contents": problem})
 
         #return 'Magic happened'
     except ValueError:
