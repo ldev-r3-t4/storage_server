@@ -77,9 +77,9 @@ def post_primary(version, problem):
             """
         #insert_json(db_size, 0, problem)
         #print("out of func")
-        return jsonify({"Contents": problem})
+        #return jsonify({"Contents": problem})
 
-        #return 'Magic happened'
+        return 'Magic happened'
     except ValueError:
         print("error Post Primary")
         return get_status(500, "Invalid JSON"), status.HTTP_500_INTERNAL_SERVER_ERROR
