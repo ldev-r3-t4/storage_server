@@ -59,6 +59,9 @@ def post_primary(version, problem):
     """
     try:
         pprint(problem)
+        tprob = problem
+        json.dumps(tprob, ensure_ascii = False)
+        pprint(tprob)
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
         db_size = db.posts.count()+1
