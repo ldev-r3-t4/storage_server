@@ -21,6 +21,7 @@ client = MongoClient()
 
 db = client.path_db
 
+
 def insert_json(uid, version, body):
     #print("inside func")
     db.posts.insert_one({"problem_id": str(uid), "version": version, "body":body})
@@ -60,10 +61,10 @@ def post_primary(version, problem):
     try:
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
-        pprint(str_body)
+        #pprint(str_body)
 
         problem = Body.from_dict(connexion.request.get_json())
-        json.dumps(problem)
+        json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
         print("\n\nproblem\n")
         pprint(problem)
         print("\n\n")
@@ -72,21 +73,15 @@ def post_primary(version, problem):
         print("db_size is: {0}".format(db_size))
 
 
-        #result = db.posts.insert_one({"body":problem})
-
-
-        """
         for i in range(1, db_size):
             if(db.posts.find_one({"problem_id":str(i)}) == None):
                 insert_json(i, 0, problem)
                 return jsonify({"problem_id": i})
             print(i)
-            """
-        #insert_json(db_size, 0, problem)
-        #print("out of func")
-        #return jsonify({"Contents": problem})
+        insert_json(db_size, 0, problem)
+        return jsonify({"problem_id": db_size})
 
-        return 'Magic happened2'
+        #return 'Magic happened2'
     except ValueError:
         print("error Post Primary")
         return get_status(500, "Invalid JSON"), status.HTTP_500_INTERNAL_SERVER_ERROR
