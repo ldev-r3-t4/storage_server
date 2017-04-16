@@ -48,6 +48,7 @@ def get_primary():
     return jsonify({"problem_id": array})
 
 def post_primary(version, problem):
+    global vrs
     """
     Update the existing primary
     
