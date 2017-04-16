@@ -10,6 +10,16 @@ from flask import jsonify
 from flask.ext.api import status
 from pymongo import MongoClient
 
+#____FOR LOCAL_______
+client = MongoClient()
+#_____________________
+
+db = client.path_db
+
+def insert_json(uid, version, body):
+    #print("inside func")
+    db.posts.insert_one({"problem_id": str(uid), "version": version, "body":body})
+
 def get_primary():
     """
     primary
