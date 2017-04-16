@@ -2,6 +2,8 @@ import connexion
 import json
 import os
 import flask
+from pprint import pprint
+
 from swagger_server.models.body import Body
 from swagger_server.models.problem import Problem
 from datetime import date, datetime
@@ -56,7 +58,7 @@ def post_primary(version, problem):
     return 'do some magic!'
     """
     try:
-        dattry = json.load(problem)
+        pprint(problem)
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
         db_size = db.posts.count()+1
