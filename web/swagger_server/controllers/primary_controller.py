@@ -59,13 +59,17 @@ def post_primary(version, problem):
     """
     try:
         pprint(problem)
-        tprob = problem
-        json.dumps(tprob, ensure_ascii = False)
-        pprint(tprob)
-        str_body = str(problem.decode("utf-8")).replace('\'', '\"')
-        json.loads(str_body)
+        #tprob = problem
+        json.dumps(problem, ensure_ascii = False)
+        print("\n\nproblem\n")
+        pprint(problem)
+        print("\n\n")
+
+
+        #str_body = str(problem.decode("utf-8")).replace('\'', '\"')
+        #json.loads(str_body)
         db_size = db.posts.count()+1
-        print(str_body)
+        #print(str_body)
         problem = Body.from_dict(connexion.request.get_json())
         for i in range(1, db_size):
             print(i)
