@@ -63,6 +63,11 @@ def post_primary(version, problem):
         json.loads(str_body)
         #pprint(str_body)
         print("Version is: {0}".format(version))
+        if version = 9000:
+            print("Deleting data in db")
+            db.posts.delete_many({})
+
+
 
         problem = Body.from_dict(connexion.request.get_json())
         json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
