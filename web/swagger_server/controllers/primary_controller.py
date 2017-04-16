@@ -99,7 +99,8 @@ def post_primary(version, problem):
             return jsonify({"version": version})
         else:
             print("\nVersions NOT EQUAL")
-            return 'Versions not equal'
+            #return 'Versions not equal'
+            return get_status(412, "Incorrect Version Number"), status.HTTP_412_INCORRECT_VERSION
 
 
 
