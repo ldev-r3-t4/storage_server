@@ -59,7 +59,7 @@ def post_primary(version, problem):
     """
     try:
         problem = Body.from_dict(connexion.request.get_json())
-        json.dumps(problem, ensure_ascii = False)
+        json.dumps(problem)
         print("\n\nproblem\n")
         pprint(problem)
         print("\n\n")
