@@ -68,7 +68,9 @@ def post_primary(version, problem):
         pprint(problem)
         print("\n\n")
 
-        db_size = db.posts.count()+1
+        insert_json(0, 0, problem)
+
+        #db_size = db.posts.count()+1
 
         #str_body = str(problem.decode("utf-8"))
         #print(str_body)
