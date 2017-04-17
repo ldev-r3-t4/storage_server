@@ -40,24 +40,18 @@ def get_primary():
 
     :rtype: Problem
     """
-    """
-    array = []
-    for post in db.posts.distinct("problem_id"):
-        print(post)
-        array.append(int(post))
-    #run a check to see if the uid exists
-    if len(array) == 0:
-        return get_status(404, "No problems found"), status.HTTP_404_NOT_FOUND
-    #if the uid doesn't exist then just go ahead return error status
-    return jsonify({"problem_id": array})
-    """
+
     print("\n-----------------------GET----------------------\n")
     print("vrs here is: {0}".format(vrs))
-    ret_object = db.posts.find_one({"version": vrs-1})
-    if ret_object is None:
-        return get_status(404, "COULD NOT FIND"), status.HTTP_404_NOT_FOUND
 
-    return jsonify({"version": ret_object['version'], "body": ret_object['body']})
+    if vrs == 0:
+        print("\nDatabase is Empty")
+        return jsonify({"version": vrs, "body": })
+    else:
+        ret_object = db.posts.find_one({"version": vrs-1})
+        if ret_object is None:
+            return get_status(404, "COULD NOT FIND"), status.HTTP_404_NOT_FOUND
+        return jsonify({"version": ret_object['version'], "body": ret_object['body']})
 
 
 
@@ -84,10 +78,6 @@ def post_primary(version, problem):
         json.loads(str_body)
         #pprint(str_body)
         print("vrs is: {0} | In Version is: {1}\n".format(vrs, version))
-        if version == 9000:
-            print("Deleting data in db")
-            db.posts.delete_many({})
-            vrs = 0
 
         if vrs == 0:
             print("Deleting data in db")
@@ -95,13 +85,13 @@ def post_primary(version, problem):
             vrs = 0
 
         if vrs == version:
-            print("\nVersions Equal")
+            print("Versions Equal")
 
             problem = Body.from_dict(connexion.request.get_json())
             json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
-            print("\n\nproblem\n")
+            print("\nproblem\n")
             pprint(problem)
-            print("\n\n")
+            
 
             db_size = db.posts.count()+1
             print("\ndb_size is: {0}".format(db_size))
@@ -116,18 +106,23 @@ def post_primary(version, problem):
             
             vrs = vrs + 1
             print("\nvrs incremented to {0}".format(vrs))
-            print("\n-------------------------------------------------\n")
+            print("\n\tSUCCESS")
+            
 
 
             return jsonify({"version": version})
         else:
             print("\n\tError Versions NOT EQUAL")
+            print("\n\tFAILURE")
             #return 'Versions not equal'
             return get_status(412, "Incorrect Version Number"), status.HTTP_412_PRECONDITION_FAILED
+
+        print("\n-------------------------------------------------\n")
 
 
 
         #return 'Magic happened2'
     except ValueError:
         print("\n\tError Post_Primary")
+        print("\n\tFAILURE")
         return get_status(500, "Invalid JSON"), status.HTTP_500_INTERNAL_SERVER_ERROR
