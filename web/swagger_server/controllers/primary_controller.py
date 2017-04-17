@@ -110,7 +110,7 @@ def post_primary(version, problem):
             
             vrs = vrs + 1
             print("\nvrs incremented to {0}".format(vrs))
-        print("\n-------------------------------------------------\n")
+            print("\n-------------------------------------------------\n")
 
 
             return jsonify({"version": version})
