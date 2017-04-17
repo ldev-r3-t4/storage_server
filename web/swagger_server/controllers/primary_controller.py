@@ -46,7 +46,7 @@ def get_primary():
 
     if vrs == 0:
         print("\nDatabase is Empty")
-        return jsonify({"version": vrs, "body": })
+        return jsonify({"version": vrs, "body": 0})
     else:
         ret_object = db.posts.find_one({"version": vrs-1})
         if ret_object is None:
