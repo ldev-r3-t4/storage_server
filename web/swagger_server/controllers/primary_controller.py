@@ -65,10 +65,11 @@ def post_primary(version, problem):
     return 'do some magic!'
     """
     try:
+        print("\n----------------------------------\n")
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
         #pprint(str_body)
-        print("vrs is: {0} | In Version is: {1}".format(vrs, version))
+        print("vrs is: {0} | In Version is: {1}\n".format(vrs, version))
         if version == 9000:
             print("Deleting data in db")
             db.posts.delete_many({})
@@ -83,7 +84,7 @@ def post_primary(version, problem):
             print("\n\n")
 
             db_size = db.posts.count()+1
-            print("db_size is: {0}".format(db_size))
+            print("\ndb_size is: {0}".format(db_size))
             """
             for i in range(1, db_size):
                 if(db.posts.find_one({"problem_id":str(i)}) == None):
@@ -94,11 +95,12 @@ def post_primary(version, problem):
             db.posts.insert_one({"version": version, "body": problem})
             
             vrs = vrs + 1
+            print("\nvrs incremented to {0}".format(vrs))
 
 
             return jsonify({"version": version})
         else:
-            print("\nVersions NOT EQUAL")
+            print("\n\tError Versions NOT EQUAL")
             #return 'Versions not equal'
             return get_status(412, "Incorrect Version Number"), status.HTTP_412_PRECONDITION_FAILED
 
@@ -106,5 +108,5 @@ def post_primary(version, problem):
 
         #return 'Magic happened2'
     except ValueError:
-        print("error Post Primary")
+        print("\n\tError Post_Primary")
         return get_status(500, "Invalid JSON"), status.HTTP_500_INTERNAL_SERVER_ERROR
