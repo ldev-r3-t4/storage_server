@@ -53,6 +53,7 @@ def get_analytic():
 
 
 def post_analytic(version, problem):
+    global vrs
     """
     Update the existing analytic
     
