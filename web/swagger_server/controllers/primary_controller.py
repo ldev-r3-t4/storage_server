@@ -87,6 +87,12 @@ def post_primary(version, problem):
         if version == 9000:
             print("Deleting data in db")
             db.posts.delete_many({})
+            vrs = 0
+
+        if vrs == 0:
+            print("Deleting data in db")
+            db.posts.delete_many({})
+            vrs = 0
 
         if vrs == version:
             print("\nVersions Equal")
