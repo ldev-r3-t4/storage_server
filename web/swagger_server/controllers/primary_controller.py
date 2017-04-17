@@ -41,7 +41,7 @@ def get_primary():
     :rtype: Problem
     """
 
-    print("\n-----------------------GET----------------------\n")
+    print("\n-----------------------GET PRIMARY----------------------\n")
     print("vrs here is: {0}".format(vrs))
 
     if vrs == 0:
