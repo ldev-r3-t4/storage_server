@@ -53,7 +53,7 @@ def get_primary():
     """
     print("\n-----------------------GET----------------------\n")
     print("vrs here is: {0}".format(vrs))
-    ret_object = db.posts.find_one({"version": vrs})
+    ret_object = db.posts.find_one({"version": vrs-1})
     if ret_object is None:
         return get_status(404, "COULD NOT FIND"), status.HTTP_404_NOT_FOUND
 
