@@ -73,7 +73,7 @@ def post_primary(version, problem):
     """
 
     try:
-        print("\n-----------------------POST----------------------\n")
+        print("\n-----------------------POST PRIMARY----------------------\n")
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
         #pprint(str_body)
