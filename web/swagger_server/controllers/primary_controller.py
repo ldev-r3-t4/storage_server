@@ -33,11 +33,13 @@ def insert_json(uid, version, body):
 
 
 def get_primary():
+    global vrs
     """
     primary
     Returns most updated primary 
 
     :rtype: Problem
+    """
     """
     array = []
     for post in db.posts.distinct("problem_id"):
@@ -48,6 +50,17 @@ def get_primary():
         return get_status(404, "No problems found"), status.HTTP_404_NOT_FOUND
     #if the uid doesn't exist then just go ahead return error status
     return jsonify({"problem_id": array})
+    """
+    print("\n-----------------------GET----------------------\n")
+    print("vrs here is: {0}".format(vrs))
+    ret_object = db.posts.find_one({"version": vrs})
+    if ret_object is None:
+        return get_status(404, "COULD NOT FIND"), status.HTTP_404_NOT_FOUND
+
+    return jsonify({"version": ret_object['version'], "body": ret_object['body']})
+
+
+
 
 def post_primary(version, problem):
     global vrs
@@ -64,8 +77,9 @@ def post_primary(version, problem):
         problem = Body.from_dict(connexion.request.get_json())
     return 'do some magic!'
     """
+
     try:
-        print("\n----------------------------------\n")
+        print("\n-----------------------POST----------------------\n")
         str_body = str(problem.decode("utf-8")).replace('\'', '\"')
         json.loads(str_body)
         #pprint(str_body)
@@ -96,6 +110,7 @@ def post_primary(version, problem):
             
             vrs = vrs + 1
             print("\nvrs incremented to {0}".format(vrs))
+        print("\n-------------------------------------------------\n")
 
 
             return jsonify({"version": version})
