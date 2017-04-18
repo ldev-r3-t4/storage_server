@@ -74,43 +74,44 @@ def post_analytic(version, problem):
             print("Deleting data in db")
             db.posts.delete_many({})
             vrs = 0
-        if vrs == 0:
-            print("Deleting data in db")
-            db.posts2.delete_many({})
-            vrs = 0
-
-        if vrs == version:
-            print("Versions Equal")
-
-            problem = Body.from_dict(connexion.request.get_json())
-            json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
-            print("\nproblem\n")
-            pprint(problem)
-            
-
-            db_size = db.posts2.count()+1
-            print("\ndb_size is: {0}".format(db_size))
-            """
-            for i in range(1, db_size):
-                if(db.posts2.find_one({"problem_id":str(i)}) == None):
-                    insert_json(i, 0, problem)
-                    return jsonify({"problem_id": i})
-                print(i)
-            """
-            db.posts2.insert_one({"version": version, "body": problem})
-            
-            vrs = vrs + 1
-            print("\nvrs incremented to {0}".format(vrs))
-            print("\n\tSUCCESS")
-            
-
-
-            return jsonify({"version": version})
         else:
-            print("\n\tError Versions NOT EQUAL")
-            print("\n\tFAILURE")
-            #return 'Versions not equal'
-            return get_status(412, "Incorrect Version Number"), status.HTTP_412_PRECONDITION_FAILED
+            if vrs == 0:
+                print("Deleting data in db")
+                db.posts2.delete_many({})
+                vrs = 0
+
+            if vrs == version:
+                print("Versions Equal")
+
+                problem = Body.from_dict(connexion.request.get_json())
+                json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
+                print("\nproblem\n")
+                pprint(problem)
+                
+
+                db_size = db.posts2.count()+1
+                print("\ndb_size is: {0}".format(db_size))
+                """
+                for i in range(1, db_size):
+                    if(db.posts2.find_one({"problem_id":str(i)}) == None):
+                        insert_json(i, 0, problem)
+                        return jsonify({"problem_id": i})
+                    print(i)
+                """
+                db.posts2.insert_one({"version": version, "body": problem})
+                
+                vrs = vrs + 1
+                print("\nvrs incremented to {0}".format(vrs))
+                print("\n\tSUCCESS")
+                
+
+
+                return jsonify({"version": version})
+            else:
+                print("\n\tError Versions NOT EQUAL")
+                print("\n\tFAILURE")
+                #return 'Versions not equal'
+                return get_status(412, "Incorrect Version Number"), status.HTTP_412_PRECONDITION_FAILED
 
         print("\n-------------------------------------------------\n")
 
