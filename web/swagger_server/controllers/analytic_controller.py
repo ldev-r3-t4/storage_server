@@ -70,7 +70,10 @@ def post_analytic(version, problem):
         json.loads(str_body)
         #pprint(str_body)
         print("vrs is: {0} | In Version is: {1}\n".format(vrs, version))
-
+        if version == 9000:
+            print("Deleting data in db")
+            db.posts.delete_many({})
+            vrs = 0
         if vrs == 0:
             print("Deleting data in db")
             db.posts2.delete_many({})

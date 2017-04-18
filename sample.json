@@ -1,8 +1,4 @@
 {
-    "goal": {
-      "coordinates": {
-        "latitude": 37.000076,
-        "longitude": -43.000036
-      }
-    }
+    "var1": 1,
+    "var2": 2 
   }
