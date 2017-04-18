@@ -21,7 +21,7 @@ This is the storage server for our final project. It will take in blobs (granted
 * Docker is installed
 * Your device is connected to the internet (to clone the repository and download required libraries)
 
-## How to Run Test Framework on Docker##
+## How to Run Test Framework on Docker ##
 
 Run the following command in your Docker to run these tests on the server:
 * $ docker run -t postman/newman_ubuntu1404 --url="https://www.getpostman.com/collections/993667a29a4d02bd5e23"
