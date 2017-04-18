@@ -83,6 +83,7 @@ def post_primary(version, problem):
             print("Deleting data in db")
             db.posts.delete_many({})
             vrs = 0
+            return jsonify({"version": version})
         else:
             if vrs == 0:
                 print("Deleting data in db")
