@@ -26,10 +26,6 @@ vrs = 0
 def get_status(status, message):
     return jsonify({"Status": status, "Message": message})
 
-def insert_json(uid, version, body):
-    #print("inside func")
-    print(" -- Inserting Data into DB -- \nproblem_id: {0} \nversion: {1} \n".format(uid, version))
-    db.posts.insert_one({"problem_id": str(uid), "version": version, "body":body})
 
 
 def get_primary():
@@ -44,13 +40,16 @@ def get_primary():
     print("\n-----------------------GET PRIMARY----------------------\n")
     print("vrs here is: {0}".format(vrs))
 
+    # Checks vrs number and sees if it is 0
     if vrs == 0:
         print("\nDatabase is Empty")
         return jsonify({"version": vrs, "body": 0})
+    #Else it will look into the database and find the content using the version number
     else:
         ret_object = db.posts.find_one({"version": vrs-1})
         if ret_object is None:
             return get_status(404, "COULD NOT FIND"), status.HTTP_404_NOT_FOUND
+        #Returns actual data to the server
         return jsonify({"version": ret_object['version'], "body": ret_object['body']})
 
 
@@ -89,14 +88,18 @@ def post_primary(version, problem):
         if (version == 9000) and ("delete" in problem):
             if problem["delete"] == 1:   
                 print("Deleting data in db")
+                #Resets server database
                 db.posts.delete_many({})
+                #Sets vrs variable to 0 so it will get deleted
                 vrs = 0
                 return jsonify({"version": version})
             else:
                 print("Version was 9000 but 'delete' = 1 not in body. Database still intact")
         else:
+            #Does a check. Happens when server restarts anew
             if vrs == 0:
                 print("Deleting data in db")
+                #Deletes database
                 db.posts.delete_many({})
                 vrs = 0
 
@@ -106,15 +109,14 @@ def post_primary(version, problem):
 
                 db_size = db.posts.count()+1
                 print("\ndb_size is: {0}".format(db_size))
-
+                #Inserts the content into the body and adds version number as well
                 db.posts.insert_one({"version": version, "body": problem})
-                
+                #Increments vrs variable
                 vrs = vrs + 1
                 print("\nvrs incremented to {0}".format(vrs))
                 print("\n\tSUCCESS")
                 
-
-
+                #Return to server, the version # just as a check
                 return jsonify({"version": version})
             else:
                 print("\n\tError Versions NOT EQUAL")
