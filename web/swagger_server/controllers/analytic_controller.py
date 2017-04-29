@@ -70,7 +70,13 @@ def post_analytic(version, problem):
         json.loads(str_body)
         #pprint(str_body)
         print("vrs is: {0} | In Version is: {1}\n".format(vrs, version))
-        if version == 9000:
+
+        problem = Body.from_dict(connexion.request.get_json())
+        json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
+        print("\nproblem\n")
+        pprint(problem)
+                
+        if (version == 9000) and (problem["delete"] == 1):
             print("Deleting data in db")
             db.posts.delete_many({})
             vrs = 0
@@ -84,10 +90,7 @@ def post_analytic(version, problem):
             if vrs == version:
                 print("Versions Equal")
 
-                problem = Body.from_dict(connexion.request.get_json())
-                json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
-                print("\nproblem\n")
-                pprint(problem)
+
                 
 
                 db_size = db.posts2.count()+1
