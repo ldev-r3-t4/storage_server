@@ -78,11 +78,14 @@ def post_analytic(version, problem):
         pprint(problem)
 
         #If the Version is 9000 and the JSON has "delete" = 1, then reset server database
-        if (version == 9000) and (problem["delete"] == 1):
-            print("Deleting data in db")
-            db.posts.delete_many({})
-            vrs = 0
-            return jsonify({"version": version})
+        if (version == 9000) and ("delete" in problem):
+            if problem["delete"] == 1:   
+                print("Deleting data in db")
+                db.posts.delete_many({})
+                vrs = 0
+                return jsonify({"version": version})
+            else:
+                print("Version was 9000 but 'delete' = 1 not in body. Database still intact")
         else:
             if vrs == 0:
                 print("Deleting data in db")
