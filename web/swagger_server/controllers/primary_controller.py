@@ -84,7 +84,7 @@ def post_primary(version, problem):
         print("\nproblem\n")
         pprint(problem)
 
-        if (version == 9000) && (problem["delete"] == 1):
+        if (version == 9000) and (problem["delete"] == 1):
             print("Deleting data in db")
             db.posts.delete_many({})
             vrs = 0
