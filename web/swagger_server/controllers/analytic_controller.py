@@ -98,13 +98,7 @@ def post_analytic(version, problem):
 
                 db_size = db.posts2.count()+1
                 print("\ndb_size is: {0}".format(db_size))
-                """
-                for i in range(1, db_size):
-                    if(db.posts2.find_one({"problem_id":str(i)}) == None):
-                        insert_json(i, 0, problem)
-                        return jsonify({"problem_id": i})
-                    print(i)
-                """
+
                 db.posts2.insert_one({"version": version, "body": problem})
                 
                 vrs = vrs + 1
