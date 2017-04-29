@@ -79,11 +79,13 @@ def post_primary(version, problem):
         #pprint(str_body)
         print("vrs is: {0} | In Version is: {1}\n".format(vrs, version))
 
+        #Gets JSON from connection and store in problem
         problem = Body.from_dict(connexion.request.get_json())
         json.dumps(problem, sort_keys = True, indent = 4, ensure_ascii = False)
         print("\nproblem\n")
         pprint(problem)
 
+        #If the Version is 9000 and the JSON has "delete" = 1, then reset server database
         if (version == 9000) and (problem["delete"] == 1):
             print("Deleting data in db")
             db.posts.delete_many({})
@@ -95,6 +97,7 @@ def post_primary(version, problem):
                 db.posts.delete_many({})
                 vrs = 0
 
+            #Run actual POST of message into database
             if vrs == version:
                 print("Versions Equal")
 
